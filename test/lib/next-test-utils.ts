@@ -699,6 +699,10 @@ export async function evaluate(
   }
 }
 
+function now() {
+  return new Date().getTime()
+}
+
 export async function retry<T>(
   fn: () => T | Promise<T>,
   duration: number = 3000,
@@ -711,11 +715,12 @@ export async function retry<T>(
     )
   }
 
-  for (let i = duration; i >= 0; i -= interval) {
+  const start = now()
+  while (true) {
     try {
       return await fn()
     } catch (err) {
-      if (i === 0) {
+      if (now() - start > duration) {
         console.error(
           `Failed to retry${
             description ? ` ${description}` : ''
