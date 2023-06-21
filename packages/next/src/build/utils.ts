@@ -1963,7 +1963,6 @@ const nextConfig = ${JSON.stringify({
 
 process.env.__NEXT_PRIVATE_STANDALONE_CONFIG = JSON.stringify(nextConfig)
 
-
 createServerHandler({
   port: currentPort,
   hostname,
